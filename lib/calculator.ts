@@ -6,6 +6,7 @@ import {
   VoiceAgent,
   HostingOption,
   convertUSDToINR,
+  MISC_EXPENSES_MONTHLY_INR,
 } from './pricing';
 
 export interface BudgetInput {
@@ -28,6 +29,7 @@ export interface Combination {
     avatarCostINR: number;
     voiceCostINR: number;
     hostingCostINR: number;
+    miscExpensesINR: number;
     totalCostINR: number;
   };
   fitsBudget: boolean;
@@ -117,8 +119,8 @@ function calculateCombination(
     input.users * hostingOption.costPerUserPerMonthINR +
     (input.minutesPerMonth / 10) * hostingOption.costPerCallINR; // Assuming ~10 min per call
 
-  // Total cost
-  const totalCostINR = avatarCostINR + voiceCostINR + hostingCostINR;
+  // Total cost (including miscellaneous expenses)
+  const totalCostINR = avatarCostINR + voiceCostINR + hostingCostINR + MISC_EXPENSES_MONTHLY_INR;
 
   // Check if fits budget
   const apiCostINR = avatarCostINR + voiceCostINR;
@@ -173,6 +175,7 @@ function calculateCombination(
       avatarCostINR,
       voiceCostINR,
       hostingCostINR,
+      miscExpensesINR: MISC_EXPENSES_MONTHLY_INR,
       totalCostINR,
     },
     fitsBudget,

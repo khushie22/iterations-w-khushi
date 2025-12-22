@@ -273,3 +273,6 @@ export function convertINRToUSD(inr: number): number {
   return inr / USD_TO_INR;
 }
 
+// Fixed miscellaneous expenses (irrespective of other costs)
+export const MISC_EXPENSES_MONTHLY_INR = 30000;
+

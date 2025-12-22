@@ -115,6 +115,10 @@ function CombinationCard({ combination, rank }: { combination: Combination; rank
             <span>Hosting Cost:</span>
             <span>₹{combination.breakdown.hostingCostINR.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
           </div>
+          <div className="flex justify-between">
+            <span>Misc Expenses:</span>
+            <span>₹{combination.breakdown.miscExpensesINR.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
+          </div>
         </div>
       </div>
 
