@@ -184,7 +184,7 @@ function CombinationCard({ combination, rank }: { combination: Combination; rank
                     <>
                       {combination.breakdown.voiceBaseCostUSD !== undefined && combination.breakdown.voiceBaseCostUSD > 0 && (
                         <div className="flex justify-between">
-                          <span>Monthly Base Cost:</span>
+                          <span>Minimum Monthly Cost:</span>
                           <div className="text-right">
                             <div>{formatUSD(combination.breakdown.voiceBaseCostUSD)}</div>
                             <div className="text-gray-500">{formatINR(convertUSDToINR(combination.breakdown.voiceBaseCostUSD))}</div>
@@ -194,6 +194,28 @@ function CombinationCard({ combination, rank }: { combination: Combination; rank
                       {combination.breakdown.voicePerMinuteCostUSD !== undefined && (
                         <div className="flex justify-between">
                           <span>Per-Minute Cost ({formatUSD(combination.voiceAgent?.pricePerMinute || 0)}/min):</span>
+                          <div className="text-right">
+                            <div>{formatUSD(combination.breakdown.voicePerMinuteCostUSD)}</div>
+                            <div className="text-gray-500">{formatINR(convertUSDToINR(combination.breakdown.voicePerMinuteCostUSD))}</div>
+                          </div>
+                        </div>
+                      )}
+                      {combination.breakdown.voiceBaseCostUSD !== undefined && combination.breakdown.voiceBaseCostUSD > 0 && (
+                        <div className="text-xs text-gray-500 italic mt-1">
+                          * Cost is the higher of minimum or per-minute cost
+                        </div>
+                      )}
+                    </>
+                  )}
+                  {combination.voiceAgent?.pricingModel === 'per-minute-per-concurrency' && (
+                    <>
+                      <div className="flex justify-between">
+                        <span>Price per Minute per Concurrency:</span>
+                        <span>{formatUSD(combination.voiceAgent?.pricePerMinute || 0)}</span>
+                      </div>
+                      {combination.breakdown.voicePerMinuteCostUSD !== undefined && (
+                        <div className="flex justify-between">
+                          <span>Total Cost (price × minutes × concurrency):</span>
                           <div className="text-right">
                             <div>{formatUSD(combination.breakdown.voicePerMinuteCostUSD)}</div>
                             <div className="text-gray-500">{formatINR(convertUSDToINR(combination.breakdown.voicePerMinuteCostUSD))}</div>

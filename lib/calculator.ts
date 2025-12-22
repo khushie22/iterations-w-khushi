@@ -127,12 +127,21 @@ function calculateCombination(
       voiceCostUSD = tokensInMillions * (voiceAgent.pricePer1MTokens || 0);
       voiceCostINR = convertUSDToINR(voiceCostUSD);
     } else if (voiceAgent.pricingModel === 'per-minute') {
-      // Per-minute pricing
-      voiceBaseCostUSD = voiceAgent.monthlyBaseCost || 0;
+      // Per-minute pricing (Hume)
+      // Note: For Hume, the monthlyBaseCost is the MINIMUM expenditure required
+      // If per-minute cost is less than minimum, use minimum. Otherwise use per-minute cost.
       voicePerMinuteCostUSD = (voiceAgent.pricePerMinute || 0) * input.minutesPerMonth;
-      voiceCostUSD = voiceBaseCostUSD + voicePerMinuteCostUSD;
-    voiceCostINR = convertUSDToINR(voiceCostUSD);
-  }
+      const minimumCostUSD = voiceAgent.monthlyMinimumCost || voiceAgent.monthlyBaseCost || 0;
+      voiceCostUSD = Math.max(minimumCostUSD, voicePerMinuteCostUSD);
+      voiceBaseCostUSD = minimumCostUSD; // Store minimum for display
+      voiceCostINR = convertUSDToINR(voiceCostUSD);
+    } else if (voiceAgent.pricingModel === 'per-minute-per-concurrency') {
+      // Per-minute per concurrency pricing (Grok)
+      // Cost = price per minute × minutes × concurrent sessions
+      voicePerMinuteCostUSD = (voiceAgent.pricePerMinute || 0) * input.minutesPerMonth * input.concurrentSessions;
+      voiceCostUSD = voicePerMinuteCostUSD;
+      voiceCostINR = convertUSDToINR(voiceCostUSD);
+    }
   }
 
   // Calculate hosting cost breakdown

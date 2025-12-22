@@ -16,13 +16,14 @@ export interface AvatarPlan {
 export interface VoiceAgent {
   id: string;
   name: string;
-  pricingModel: 'tokens' | 'per-minute';
+  pricingModel: 'tokens' | 'per-minute' | 'per-minute-per-concurrency';
   // For token-based pricing
   pricePer1MTokens?: number;
   tokensPerMinute?: number; // 300 words/min * ~1 token/word = 300 tokens/min
   // For per-minute pricing
   pricePerMinute?: number;
-  monthlyBaseCost?: number; // Monthly subscription cost (if any)
+  monthlyBaseCost?: number; // Monthly minimum cost (for Hume) or base cost
+  monthlyMinimumCost?: number; // Minimum expenditure required (for Hume)
   concurrency?: number; // Max concurrent sessions
 }
 
@@ -185,7 +186,8 @@ export const VOICE_AGENTS: VoiceAgent[] = [
     name: 'Hume Pro',
     pricingModel: 'per-minute',
     pricePerMinute: 0.06,
-    monthlyBaseCost: 70,
+    monthlyBaseCost: 70, // Minimum expenditure required
+    monthlyMinimumCost: 70, // Minimum expenditure required
     concurrency: 10,
   },
   {
@@ -193,7 +195,8 @@ export const VOICE_AGENTS: VoiceAgent[] = [
     name: 'Hume Scale',
     pricingModel: 'per-minute',
     pricePerMinute: 0.05,
-    monthlyBaseCost: 200,
+    monthlyBaseCost: 200, // Minimum expenditure required
+    monthlyMinimumCost: 200, // Minimum expenditure required
     concurrency: 20,
   },
   {
@@ -201,16 +204,17 @@ export const VOICE_AGENTS: VoiceAgent[] = [
     name: 'Hume Business',
     pricingModel: 'per-minute',
     pricePerMinute: 0.04,
-    monthlyBaseCost: 500,
+    monthlyBaseCost: 500, // Minimum expenditure required
+    monthlyMinimumCost: 500, // Minimum expenditure required
     concurrency: 30,
   },
   {
     id: 'grok',
     name: 'Grok',
-    pricingModel: 'per-minute',
+    pricingModel: 'per-minute-per-concurrency',
     pricePerMinute: 0.05,
-    monthlyBaseCost: 0, // No base cost mentioned
-    concurrency: undefined, // Not specified in PDF
+    monthlyBaseCost: 0, // No base cost
+    concurrency: undefined, // No limit specified
   },
 ];
 

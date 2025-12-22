@@ -216,49 +216,49 @@ export default function BudgetForm({ onSubmit, isCalculating }: BudgetFormProps)
             </div>
             {/* Hume Pro */}
             <div className="flex justify-between items-center">
-              <span className="text-gray-700 dark:text-gray-300">Hume Pro:</span>
+              <span className="text-gray-700 dark:text-gray-300">Hume Pro (min $70):</span>
               <div className="text-right">
                 <div className="font-medium text-gray-900 dark:text-white">
-                  ${(70 + formData.minutesPerMonth * 0.06).toFixed(2)}
+                  ${Math.max(70, formData.minutesPerMonth * 0.06).toFixed(2)}
                 </div>
                 <div className="text-gray-500">
-                  ₹{((70 + formData.minutesPerMonth * 0.06) * 90).toFixed(0)}
+                  ₹{(Math.max(70, formData.minutesPerMonth * 0.06) * 90).toFixed(0)}
                 </div>
               </div>
             </div>
             {/* Hume Scale */}
             <div className="flex justify-between items-center">
-              <span className="text-gray-700 dark:text-gray-300">Hume Scale:</span>
+              <span className="text-gray-700 dark:text-gray-300">Hume Scale (min $200):</span>
               <div className="text-right">
                 <div className="font-medium text-gray-900 dark:text-white">
-                  ${(200 + formData.minutesPerMonth * 0.05).toFixed(2)}
+                  ${Math.max(200, formData.minutesPerMonth * 0.05).toFixed(2)}
                 </div>
                 <div className="text-gray-500">
-                  ₹{((200 + formData.minutesPerMonth * 0.05) * 90).toFixed(0)}
+                  ₹{(Math.max(200, formData.minutesPerMonth * 0.05) * 90).toFixed(0)}
                 </div>
               </div>
             </div>
             {/* Hume Business */}
             <div className="flex justify-between items-center">
-              <span className="text-gray-700 dark:text-gray-300">Hume Business:</span>
+              <span className="text-gray-700 dark:text-gray-300">Hume Business (min $500):</span>
               <div className="text-right">
                 <div className="font-medium text-gray-900 dark:text-white">
-                  ${(500 + formData.minutesPerMonth * 0.04).toFixed(2)}
+                  ${Math.max(500, formData.minutesPerMonth * 0.04).toFixed(2)}
                 </div>
                 <div className="text-gray-500">
-                  ₹{((500 + formData.minutesPerMonth * 0.04) * 90).toFixed(0)}
+                  ₹{(Math.max(500, formData.minutesPerMonth * 0.04) * 90).toFixed(0)}
                 </div>
               </div>
             </div>
             {/* Grok */}
             <div className="flex justify-between items-center">
-              <span className="text-gray-700 dark:text-gray-300">Grok:</span>
+              <span className="text-gray-700 dark:text-gray-300">Grok (per min per concurrency):</span>
               <div className="text-right">
                 <div className="font-medium text-gray-900 dark:text-white">
-                  ${(formData.minutesPerMonth * 0.05).toFixed(2)}
+                  ${(formData.minutesPerMonth * 0.05 * formData.concurrentSessions).toFixed(2)}
                 </div>
                 <div className="text-gray-500">
-                  ₹{(formData.minutesPerMonth * 0.05 * 90).toFixed(0)}
+                  ₹{(formData.minutesPerMonth * 0.05 * formData.concurrentSessions * 90).toFixed(0)}
                 </div>
               </div>
             </div>
