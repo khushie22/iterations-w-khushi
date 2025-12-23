@@ -300,23 +300,26 @@ function CombinationCard({ combination, rank }: { combination: Combination; rank
   const formatUSD = (amount: number) => `$${amount.toLocaleString('en-US', { maximumFractionDigits: 2 })}`;
 
   return (
-    <div className="group relative border border-gray-200/60 dark:border-gray-800/60 rounded-2xl p-6 bg-gradient-to-br from-white via-gray-50/50 to-white dark:from-gray-950 dark:via-black dark:to-gray-950 hover:shadow-2xl hover:border-blue-300/50 dark:hover:border-blue-600/50 transition-all duration-500 overflow-hidden">
+    <div 
+      onClick={() => setShowDetails(!showDetails)}
+      className="group relative border border-gray-200/60 dark:border-gray-800/60 rounded-2xl p-6 bg-gradient-to-br from-white via-gray-50/50 to-white dark:from-gray-950 dark:via-black dark:to-gray-950 hover:shadow-2xl hover:border-blue-300/50 dark:hover:border-blue-600/50 transition-all duration-500 overflow-hidden cursor-pointer"
+    >
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 via-indigo-50/0 to-purple-50/0 dark:from-blue-950/0 dark:via-indigo-950/0 dark:to-purple-950/0 group-hover:from-blue-50/30 group-hover:via-indigo-50/20 group-hover:to-purple-50/30 dark:group-hover:from-blue-950/20 dark:group-hover:via-indigo-950/10 dark:group-hover:to-purple-950/20 transition-all duration-500 pointer-events-none"></div>
       
       {/* Sticker Badge - Top Left Corner */}
-      <div className="absolute -top-1 -left-1 z-20 transform -rotate-12 origin-center">
+      <div className="absolute -top-1 -left-1 z-20 transform -rotate-12 origin-center pointer-events-none">
         <div className={`px-4 py-1.5 rounded-md ${badgeColor} shadow-xl backdrop-blur-sm border-2 border-white/50 dark:border-gray-900/50`}>
-          {combination.fitsBudget ? (
+            {combination.fitsBudget ? (
             <span className="flex items-center text-[0.6rem] font-bold">
               <CheckCircle className="w-2.5 h-2.5 mr-1" />
-              Fits Budget
-            </span>
-          ) : (
+                Fits Budget
+              </span>
+            ) : (
             <span className="flex items-center text-[0.6rem] font-bold">
               <XCircle className="w-2.5 h-2.5 mr-1" />
-              Over Budget
-            </span>
-          )}
+                Over Budget
+              </span>
+            )}
         </div>
       </div>
 
@@ -362,13 +365,12 @@ function CombinationCard({ combination, rank }: { combination: Combination; rank
       </div>
 
       <div className="mt-4 pt-4 border-t border-gray-200/50 dark:border-gray-800/50">
-        <button
-          onClick={() => setShowDetails(!showDetails)}
-          className="w-full flex items-center justify-between text-[0.7rem] font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 bg-gradient-to-r from-blue-50/50 to-indigo-50/50 dark:from-blue-950/30 dark:to-indigo-950/30 px-4 py-3 rounded-xl hover:from-blue-100/50 hover:to-indigo-100/50 dark:hover:from-blue-900/40 dark:hover:to-indigo-900/40 transition-all duration-200 shadow-sm hover:shadow-md backdrop-blur-sm"
-        >
-          <span className="uppercase tracking-wider text-[0.6rem]">View Detailed Breakdown</span>
+        <div className="w-full flex items-center justify-between text-[0.7rem] font-bold text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-950/30 px-4 py-3 rounded-xl transition-all duration-200">
+          <span className="uppercase tracking-wider text-[0.6rem]">
+            {showDetails ? 'Hide' : 'View'} Detailed Breakdown
+          </span>
           {showDetails ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
-        </button>
+        </div>
 
         {showDetails && (
           <div className="mt-4 space-y-4 text-[0.6rem]">
