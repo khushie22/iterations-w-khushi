@@ -140,8 +140,8 @@ function calculateCombination(
       // Cost = price per minute × minutes × concurrent sessions
       voicePerMinuteCostUSD = (voiceAgent.pricePerMinute || 0) * input.minutesPerMonth * input.concurrentSessions;
       voiceCostUSD = voicePerMinuteCostUSD;
-      voiceCostINR = convertUSDToINR(voiceCostUSD);
-    }
+    voiceCostINR = convertUSDToINR(voiceCostUSD);
+  }
   }
 
   // Calculate hosting cost breakdown

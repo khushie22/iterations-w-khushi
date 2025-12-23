@@ -37,13 +37,13 @@ export default function ResultsDisplay({ results, isCalculating }: ResultsDispla
       <div className="mb-6 pb-4 border-b border-gray-200 dark:border-gray-800 flex-shrink-0">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
           Best Combinations
-        </h2>
+      </h2>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
           {results.length} {results.length === 1 ? 'combination' : 'combinations'} found
         </p>
       </div>
       <div className="flex-1 overflow-y-auto pr-2 min-h-0">
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {results.map((combination, index) => (
             <CombinationCard key={combination.id} combination={combination} rank={index + 1} />
           ))}

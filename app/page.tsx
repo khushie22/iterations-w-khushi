@@ -44,10 +44,10 @@ export default function Home() {
             <div>
               <h1 className="text-2xl font-extrabold bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent">
                 iterations w khushi
-              </h1>
+          </h1>
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 Smart cost estimation for avatar & voice solutions
-              </p>
+          </p>
             </div>
           </div>
         </div>
@@ -77,7 +77,7 @@ export default function Home() {
         <div className="flex-1 overflow-hidden">
           <div className="h-full p-6">
             <div className="h-full bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-8 flex flex-col">
-              <ResultsDisplay results={results} isCalculating={isCalculating} />
+            <ResultsDisplay results={results} isCalculating={isCalculating} />
             </div>
           </div>
         </div>
