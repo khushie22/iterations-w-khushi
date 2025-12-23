@@ -67,10 +67,10 @@ export default function Home() {
                 <div className="flex items-center space-x-3 mb-2">
                   <div className="w-1 h-8 bg-gradient-to-b from-blue-600 to-indigo-600 rounded-full"></div>
                   <div>
-                    <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+                    <h2 className="text-[1.275rem] font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
                       Configuration
                     </h2>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 font-medium">
+                    <p className="text-[0.6375rem] text-gray-500 dark:text-gray-400 mt-0.5 font-medium">
                       Budget & Usage Parameters
                     </p>
                   </div>

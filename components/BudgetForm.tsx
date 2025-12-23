@@ -37,7 +37,7 @@ export default function BudgetForm({ onSubmit, isCalculating }: BudgetFormProps)
 
       {/* Monthly Budget */}
       <div className="space-y-2.5">
-        <label className="block text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400">
+        <label className="block text-[0.6375rem] font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400">
           Monthly Budget (INR)
         </label>
         <input
@@ -46,14 +46,14 @@ export default function BudgetForm({ onSubmit, isCalculating }: BudgetFormProps)
           step="1000"
           value={formData.monthlyBudgetINR}
           onChange={(e) => updateField('monthlyBudgetINR', Number(e.target.value))}
-          className="w-full px-5 py-3.5 border border-gray-300/50 dark:border-gray-700/50 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 bg-white/80 dark:bg-gray-900/50 backdrop-blur-sm text-gray-900 dark:text-white font-semibold shadow-sm hover:shadow-md transition-all duration-200"
+          className="w-full px-5 py-3.5 border border-gray-300/50 dark:border-gray-700/50 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 bg-white/80 dark:bg-gray-900/50 backdrop-blur-sm text-gray-900 dark:text-white font-semibold shadow-sm hover:shadow-md transition-all duration-200 text-[0.85rem]"
           required
         />
       </div>
 
       {/* Budget Allocation */}
       <div className="space-y-2.5">
-        <label className="block text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400">
+        <label className="block text-[0.6375rem] font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400">
           API Allocation: <span className="text-blue-600 dark:text-blue-400 font-extrabold">{formData.apiAllocationPercent}%</span> 
           <span className="text-gray-500 dark:text-gray-400 ml-2 font-normal">(₹{apiBudget.toLocaleString('en-IN')})</span>
         </label>
@@ -76,14 +76,14 @@ export default function BudgetForm({ onSubmit, isCalculating }: BudgetFormProps)
             background: `linear-gradient(to right, rgb(37, 99, 235) 0%, rgb(37, 99, 235) ${formData.apiAllocationPercent}%, rgb(229, 231, 235) ${formData.apiAllocationPercent}%, rgb(229, 231, 235) 100%)`
           }}
         />
-        <div className="flex justify-between text-xs text-gray-500 mt-1">
+        <div className="flex justify-between text-[0.6375rem] text-gray-500 mt-1">
           <span>0%</span>
           <span>100%</span>
         </div>
       </div>
 
       <div className="space-y-2.5">
-        <label className="block text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400">
+        <label className="block text-[0.6375rem] font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400">
           Hosting Allocation: <span className="text-purple-600 dark:text-purple-400 font-extrabold">{formData.hostingAllocationPercent}%</span>
           <span className="text-gray-500 dark:text-gray-400 ml-2 font-normal">(₹{hostingBudget.toLocaleString('en-IN')})</span>
         </label>
@@ -106,7 +106,7 @@ export default function BudgetForm({ onSubmit, isCalculating }: BudgetFormProps)
             background: `linear-gradient(to right, rgb(37, 99, 235) 0%, rgb(37, 99, 235) ${formData.hostingAllocationPercent}%, rgb(229, 231, 235) ${formData.hostingAllocationPercent}%, rgb(229, 231, 235) 100%)`
           }}
         />
-        <div className="flex justify-between text-xs text-gray-500 mt-1">
+        <div className="flex justify-between text-[0.6375rem] text-gray-500 mt-1">
           <span>0%</span>
           <span>100%</span>
         </div>
@@ -114,7 +114,7 @@ export default function BudgetForm({ onSubmit, isCalculating }: BudgetFormProps)
 
       {totalAllocation !== 100 && (
         <div className="bg-yellow-50 dark:bg-yellow-900/30 border-2 border-yellow-300 dark:border-yellow-700 rounded-xl p-4">
-          <p className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
+          <p className="text-[0.74375rem] font-medium text-yellow-800 dark:text-yellow-200">
             ⚠️ Total allocation: {totalAllocation}% (should be 100%)
           </p>
         </div>
@@ -122,7 +122,7 @@ export default function BudgetForm({ onSubmit, isCalculating }: BudgetFormProps)
 
       {/* Users */}
       <div className="space-y-2.5">
-        <label className="block text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400">
+        <label className="block text-[0.6375rem] font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400">
           Number of Users
         </label>
         <input
@@ -130,14 +130,14 @@ export default function BudgetForm({ onSubmit, isCalculating }: BudgetFormProps)
           min="1"
           value={formData.users}
           onChange={(e) => updateField('users', Number(e.target.value))}
-          className="w-full px-5 py-3.5 border border-gray-300/50 dark:border-gray-700/50 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 bg-white/80 dark:bg-gray-900/50 backdrop-blur-sm text-gray-900 dark:text-white font-semibold shadow-sm hover:shadow-md transition-all duration-200"
+          className="w-full px-5 py-3.5 border border-gray-300/50 dark:border-gray-700/50 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 bg-white/80 dark:bg-gray-900/50 backdrop-blur-sm text-gray-900 dark:text-white font-semibold shadow-sm hover:shadow-md transition-all duration-200 text-[0.85rem]"
           required
         />
       </div>
 
       {/* Concurrent Sessions */}
       <div className="space-y-2.5">
-        <label className="block text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400">
+        <label className="block text-[0.6375rem] font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400">
           Concurrent Sessions
         </label>
         <input
@@ -145,14 +145,14 @@ export default function BudgetForm({ onSubmit, isCalculating }: BudgetFormProps)
           min="1"
           value={formData.concurrentSessions}
           onChange={(e) => updateField('concurrentSessions', Number(e.target.value))}
-          className="w-full px-5 py-3.5 border border-gray-300/50 dark:border-gray-700/50 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 bg-white/80 dark:bg-gray-900/50 backdrop-blur-sm text-gray-900 dark:text-white font-semibold shadow-sm hover:shadow-md transition-all duration-200"
+          className="w-full px-5 py-3.5 border border-gray-300/50 dark:border-gray-700/50 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 bg-white/80 dark:bg-gray-900/50 backdrop-blur-sm text-gray-900 dark:text-white font-semibold shadow-sm hover:shadow-md transition-all duration-200 text-[0.85rem]"
           required
         />
       </div>
 
       {/* Minutes per Month */}
       <div className="space-y-2.5">
-        <label className="block text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400">
+        <label className="block text-[0.6375rem] font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400">
           Minutes per Month: <span className="text-indigo-600 dark:text-indigo-400 font-extrabold">{formData.minutesPerMonth.toLocaleString()}</span>
         </label>
         <input
@@ -177,7 +177,7 @@ export default function BudgetForm({ onSubmit, isCalculating }: BudgetFormProps)
           step="100"
           value={formData.minutesPerMonth}
           onChange={(e) => updateField('minutesPerMonth', Number(e.target.value))}
-          className="w-full px-5 py-3.5 border border-gray-300/50 dark:border-gray-700/50 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 bg-white/80 dark:bg-gray-900/50 backdrop-blur-sm text-gray-900 dark:text-white font-semibold shadow-sm hover:shadow-md transition-all duration-200"
+          className="w-full px-5 py-3.5 border border-gray-300/50 dark:border-gray-700/50 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 bg-white/80 dark:bg-gray-900/50 backdrop-blur-sm text-gray-900 dark:text-white font-semibold shadow-sm hover:shadow-md transition-all duration-200 text-[0.85rem]"
           required
         />
       </div>
@@ -185,10 +185,10 @@ export default function BudgetForm({ onSubmit, isCalculating }: BudgetFormProps)
       {/* Voice Minutes Breakdown (if using voice agent) */}
       {formData.useVoiceAgent && (
         <div className="bg-gradient-to-br from-blue-50/80 via-indigo-50/80 to-purple-50/80 dark:from-blue-950/40 dark:via-indigo-950/40 dark:to-purple-950/40 border border-blue-200/50 dark:border-blue-800/30 rounded-2xl p-5 shadow-lg backdrop-blur-sm">
-          <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+          <h3 className="text-[0.74375rem] font-semibold text-gray-900 dark:text-white mb-3">
             Voice Agent Cost Preview (for {formData.minutesPerMonth.toLocaleString()} minutes)
           </h3>
-          <div className="space-y-2 text-xs">
+          <div className="space-y-2 text-[0.6375rem]">
             {/* Gemini Live */}
             <div className="flex justify-between items-center">
               <span className="text-gray-700 dark:text-gray-300">Gemini Live (2,500-3,500 tokens/min):</span>
@@ -274,11 +274,11 @@ export default function BudgetForm({ onSubmit, isCalculating }: BudgetFormProps)
             onChange={(e) => updateField('useVoiceAgent', e.target.checked)}
             className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
           />
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          <span className="text-[0.74375rem] font-medium text-gray-700 dark:text-gray-300">
             Use Voice Agent (instead of inbuilt avatar voice)
           </span>
         </label>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 ml-8">
+        <p className="text-[0.6375rem] text-gray-500 dark:text-gray-400 mt-1 ml-8">
           {formData.useVoiceAgent
             ? 'Will use Gemini Live or GPT Realtime for voice'
             : 'Will use avatar provider\'s inbuilt voice'}
@@ -289,7 +289,7 @@ export default function BudgetForm({ onSubmit, isCalculating }: BudgetFormProps)
       <button
         type="submit"
         disabled={isCalculating || totalAllocation !== 100}
-        className="w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 disabled:from-gray-400 disabled:via-gray-500 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 disabled:transform-none relative overflow-hidden group"
+        className="w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 disabled:from-gray-400 disabled:via-gray-500 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 disabled:transform-none relative overflow-hidden group text-[0.85rem]"
       >
         <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
         {isCalculating ? (

@@ -134,7 +134,7 @@ export default function ResultsDisplay({ results, isCalculating }: ResultsDispla
               <Filter className="w-4 h-4" />
               <span>Filters</span>
               {activeFilterCount > 0 && (
-                <span className="bg-white/20 px-2 py-0.5 rounded-full text-xs">
+                <span className="bg-white/20 px-2 py-0.5 rounded-full text-[0.6rem]">
                   {activeFilterCount}
                 </span>
               )}
@@ -146,11 +146,11 @@ export default function ResultsDisplay({ results, isCalculating }: ResultsDispla
         {showFilters && results.length > 0 && (
           <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-gray-900 dark:text-white">Filter Options</h3>
+              <h3 className="text-[0.7rem] font-semibold text-gray-900 dark:text-white">Filter Options</h3>
               {activeFilterCount > 0 && (
                 <button
                   onClick={clearFilters}
-                  className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                  className="text-[0.7rem] text-blue-600 dark:text-blue-400 hover:underline"
                 >
                   Clear all
                 </button>
@@ -160,7 +160,7 @@ export default function ResultsDisplay({ results, isCalculating }: ResultsDispla
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {/* Avatar Provider Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-[0.7rem] font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Avatar Provider
                 </label>
                 <select
@@ -170,7 +170,7 @@ export default function ResultsDisplay({ results, isCalculating }: ResultsDispla
                     const selected = Array.from(e.target.selectedOptions, option => option.value);
                     setFilters(prev => ({ ...prev, avatarProviders: selected }));
                   }}
-                  className="w-full px-3 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-[0.7rem]"
                   size={Math.min(filterOptions.avatarProviders.length, 4)}
                 >
                   {filterOptions.avatarProviders.map(provider => (
@@ -179,14 +179,14 @@ export default function ResultsDisplay({ results, isCalculating }: ResultsDispla
                     </option>
                   ))}
                 </select>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                <p className="text-[0.6rem] text-gray-500 dark:text-gray-400 mt-1">
                   Hold Ctrl/Cmd to select multiple
                 </p>
               </div>
 
               {/* Voice Agent Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-[0.7rem] font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Voice Agent
                 </label>
                 <select
@@ -196,7 +196,7 @@ export default function ResultsDisplay({ results, isCalculating }: ResultsDispla
                     const selected = Array.from(e.target.selectedOptions, option => option.value);
                     setFilters(prev => ({ ...prev, voiceAgents: selected }));
                   }}
-                  className="w-full px-3 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-[0.7rem]"
                   size={Math.min(filterOptions.voiceAgents.length, 4)}
                 >
                   {filterOptions.voiceAgents.map(agent => (
@@ -205,14 +205,14 @@ export default function ResultsDisplay({ results, isCalculating }: ResultsDispla
                     </option>
                   ))}
                 </select>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                <p className="text-[0.6rem] text-gray-500 dark:text-gray-400 mt-1">
                   Hold Ctrl/Cmd to select multiple
                 </p>
               </div>
 
               {/* Hosting Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-[0.7rem] font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Hosting
                 </label>
                 <select
@@ -222,7 +222,7 @@ export default function ResultsDisplay({ results, isCalculating }: ResultsDispla
                     const selected = Array.from(e.target.selectedOptions, option => option.value);
                     setFilters(prev => ({ ...prev, hostingOptions: selected }));
                   }}
-                  className="w-full px-3 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-[0.7rem]"
                   size={Math.min(filterOptions.hostingOptions.length, 4)}
                 >
                   {filterOptions.hostingOptions.map(hosting => (
@@ -231,14 +231,14 @@ export default function ResultsDisplay({ results, isCalculating }: ResultsDispla
                     </option>
                   ))}
                 </select>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                <p className="text-[0.6rem] text-gray-500 dark:text-gray-400 mt-1">
                   Hold Ctrl/Cmd to select multiple
                 </p>
               </div>
 
               {/* Budget Fit Filter */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-[0.7rem] font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Budget Status
                 </label>
                 <select
@@ -248,13 +248,13 @@ export default function ResultsDisplay({ results, isCalculating }: ResultsDispla
                     const selected = Array.from(e.target.selectedOptions, option => option.value);
                     setFilters(prev => ({ ...prev, budgetFit: selected }));
                   }}
-                  className="w-full px-3 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-[0.7rem]"
                   size={2}
                 >
                   <option value="fits-budget">Fits Budget</option>
                   <option value="over-budget">Over Budget</option>
                 </select>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                <p className="text-[0.6rem] text-gray-500 dark:text-gray-400 mt-1">
                   Hold Ctrl/Cmd to select multiple
                 </p>
               </div>
@@ -277,7 +277,7 @@ export default function ResultsDisplay({ results, isCalculating }: ResultsDispla
               {activeFilterCount > 0 && (
                 <button
                   onClick={clearFilters}
-                  className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                  className="text-blue-600 dark:text-blue-400 hover:underline text-[0.7rem]"
                 >
                   Clear filters to see all combinations
                 </button>
@@ -306,9 +306,9 @@ function CombinationCard({ combination, rank }: { combination: Combination; rank
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center space-x-3">
           <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 shadow-lg">
-            <span className="text-lg font-extrabold text-white">#{rank}</span>
+            <span className="text-[0.9rem] font-extrabold text-white">#{rank}</span>
           </div>
-          <span className={`px-4 py-1.5 rounded-full text-xs font-bold ${badgeColor} shadow-md backdrop-blur-sm`}>
+          <span className={`px-4 py-1.5 rounded-full text-[0.6rem] font-bold ${badgeColor} shadow-md backdrop-blur-sm`}>
             {combination.fitsBudget ? (
               <span className="flex items-center">
                 <CheckCircle className="w-3 h-3 mr-1" />
@@ -323,25 +323,25 @@ function CombinationCard({ combination, rank }: { combination: Combination; rank
           </span>
         </div>
         <div className="text-right">
-          <div className="text-3xl font-extrabold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+          <div className="text-[1.5rem] font-extrabold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
             {formatINR(combination.totalCostINR)}
           </div>
-          <div className="text-sm font-semibold text-gray-500 dark:text-gray-400 mt-1">
+          <div className="text-[0.7rem] font-semibold text-gray-500 dark:text-gray-400 mt-1">
             {formatUSD(combination.breakdown.totalCostUSD)}
           </div>
-          <div className="text-xs text-gray-400 dark:text-gray-500 font-medium uppercase tracking-wider mt-0.5">per month</div>
+          <div className="text-[0.6rem] text-gray-400 dark:text-gray-500 font-medium uppercase tracking-wider mt-0.5">per month</div>
         </div>
       </div>
 
-      <div className="space-y-3 text-sm mb-4">
+      <div className="space-y-3 text-[0.7rem] mb-4">
         <div className="flex justify-between items-center py-2 px-3 rounded-lg bg-gray-50/50 dark:bg-gray-900/30 backdrop-blur-sm">
-          <span className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">Avatar</span>
+          <span className="text-[0.6rem] font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">Avatar</span>
           <span className="font-bold text-gray-900 dark:text-white">
             {combination.avatarPlan.name}
           </span>
         </div>
         <div className="flex justify-between items-center py-2 px-3 rounded-lg bg-gray-50/50 dark:bg-gray-900/30 backdrop-blur-sm">
-          <span className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">Voice</span>
+          <span className="text-[0.6rem] font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">Voice</span>
           <span className="font-bold text-gray-900 dark:text-white">
             {combination.voiceAgent
               ? `${combination.voiceAgent.name}${combination.voiceAgent.concurrency ? ` (${combination.voiceAgent.concurrency} conc.)` : ''}`
@@ -349,7 +349,7 @@ function CombinationCard({ combination, rank }: { combination: Combination; rank
           </span>
         </div>
         <div className="flex justify-between items-center py-2 px-3 rounded-lg bg-gray-50/50 dark:bg-gray-900/30 backdrop-blur-sm">
-          <span className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">Hosting</span>
+          <span className="text-[0.6rem] font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">Hosting</span>
           <span className="font-bold text-gray-900 dark:text-white">
             {combination.hostingOption.name}
           </span>
@@ -359,17 +359,17 @@ function CombinationCard({ combination, rank }: { combination: Combination; rank
       <div className="mt-4 pt-4 border-t border-gray-200/50 dark:border-gray-800/50">
         <button
           onClick={() => setShowDetails(!showDetails)}
-          className="w-full flex items-center justify-between text-sm font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 bg-gradient-to-r from-blue-50/50 to-indigo-50/50 dark:from-blue-950/30 dark:to-indigo-950/30 px-4 py-3 rounded-xl hover:from-blue-100/50 hover:to-indigo-100/50 dark:hover:from-blue-900/40 dark:hover:to-indigo-900/40 transition-all duration-200 shadow-sm hover:shadow-md backdrop-blur-sm"
+          className="w-full flex items-center justify-between text-[0.7rem] font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 bg-gradient-to-r from-blue-50/50 to-indigo-50/50 dark:from-blue-950/30 dark:to-indigo-950/30 px-4 py-3 rounded-xl hover:from-blue-100/50 hover:to-indigo-100/50 dark:hover:from-blue-900/40 dark:hover:to-indigo-900/40 transition-all duration-200 shadow-sm hover:shadow-md backdrop-blur-sm"
         >
-          <span className="uppercase tracking-wider text-xs">View Detailed Breakdown</span>
+          <span className="uppercase tracking-wider text-[0.6rem]">View Detailed Breakdown</span>
           {showDetails ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
         </button>
 
         {showDetails && (
-          <div className="mt-4 space-y-4 text-xs">
+          <div className="mt-4 space-y-4 text-[0.6rem]">
             {/* Avatar Cost Breakdown */}
             <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-black rounded-xl p-4 border border-gray-200 dark:border-gray-800">
-              <div className="font-semibold text-gray-900 dark:text-white mb-2">Avatar Cost Breakdown</div>
+              <div className="text-[0.7rem] font-semibold text-gray-900 dark:text-white mb-2">Avatar Cost Breakdown</div>
               <div className="space-y-1 text-gray-700 dark:text-gray-300">
                 <div className="flex justify-between">
                   <span>Base Plan Cost:</span>
@@ -410,7 +410,7 @@ function CombinationCard({ combination, rank }: { combination: Combination; rank
             {/* Voice Cost Breakdown */}
             {combination.breakdown.voiceCostINR > 0 && (
               <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl p-4 border border-blue-200 dark:border-blue-900">
-                <div className="font-semibold text-gray-900 dark:text-white mb-2">Voice Agent Cost Breakdown</div>
+                <div className="text-[0.7rem] font-semibold text-gray-900 dark:text-white mb-2">Voice Agent Cost Breakdown</div>
                 <div className="space-y-1 text-gray-700 dark:text-gray-300">
                   {combination.voiceAgent?.pricingModel === 'tokens' && combination.breakdown.voiceTotalTokens && (
                     <>
@@ -457,9 +457,9 @@ function CombinationCard({ combination, rank }: { combination: Combination; rank
                         </div>
                       )}
                       {combination.breakdown.voiceBaseCostUSD !== undefined && combination.breakdown.voiceBaseCostUSD > 0 && (
-                        <div className="text-xs text-gray-500 italic mt-1">
-                          * Cost is the higher of minimum or per-minute cost
-                        </div>
+                      <div className="text-[0.6rem] text-gray-500 italic mt-1">
+                        * Cost is the higher of minimum or per-minute cost
+                      </div>
                       )}
                     </>
                   )}
@@ -493,7 +493,7 @@ function CombinationCard({ combination, rank }: { combination: Combination; rank
 
             {/* Hosting Cost Breakdown */}
             <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 rounded-xl p-4 border border-purple-200 dark:border-purple-900">
-              <div className="font-semibold text-gray-900 dark:text-white mb-2">Hosting Cost Breakdown</div>
+              <div className="text-[0.7rem] font-semibold text-gray-900 dark:text-white mb-2">Hosting Cost Breakdown</div>
               <div className="space-y-1 text-gray-700 dark:text-gray-300">
                 <div className="flex justify-between">
                   <span>Base Monthly Cost:</span>
@@ -516,7 +516,7 @@ function CombinationCard({ combination, rank }: { combination: Combination; rank
 
             {/* Misc Expenses */}
             <div className="bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/30 dark:to-orange-900/30 rounded-xl p-4 border border-yellow-200 dark:border-yellow-900">
-              <div className="font-semibold text-gray-900 dark:text-white mb-2">Miscellaneous Expenses</div>
+              <div className="text-[0.7rem] font-semibold text-gray-900 dark:text-white mb-2">Miscellaneous Expenses</div>
               <div className="flex justify-between text-gray-700 dark:text-gray-300">
                 <span>Fixed Monthly Cost:</span>
                 <span>{formatINR(combination.breakdown.miscExpensesINR)}</span>
@@ -525,12 +525,12 @@ function CombinationCard({ combination, rank }: { combination: Combination; rank
 
             {/* Total Summary */}
             <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-5 border-2 border-blue-500 dark:border-blue-400 shadow-lg">
-              <div className="font-bold text-white mb-3 text-lg">Total Monthly Cost</div>
-              <div className="flex justify-between text-xl mb-2">
+              <div className="font-bold text-white mb-3 text-[0.9rem]">Total Monthly Cost</div>
+              <div className="flex justify-between text-[1rem] mb-2">
                 <span className="text-blue-100">INR:</span>
                 <span className="font-extrabold text-white">{formatINR(combination.breakdown.totalCostINR)}</span>
               </div>
-              <div className="flex justify-between text-xl">
+              <div className="flex justify-between text-[1rem]">
                 <span className="text-blue-100">USD:</span>
                 <span className="font-extrabold text-white">{formatUSD(combination.breakdown.totalCostUSD)}</span>
               </div>
@@ -543,7 +543,7 @@ function CombinationCard({ combination, rank }: { combination: Combination; rank
         <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-800">
           <div className="flex items-start space-x-2">
             <AlertTriangle className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
-            <div className="text-xs text-yellow-800 dark:text-yellow-200 space-y-1">
+            <div className="text-[0.6rem] text-yellow-800 dark:text-yellow-200 space-y-1">
               {combination.warnings.map((warning, idx) => (
                 <div key={idx}>• {warning}</div>
               ))}
@@ -552,7 +552,7 @@ function CombinationCard({ combination, rank }: { combination: Combination; rank
         </div>
       )}
 
-      <div className="mt-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+      <div className="mt-4 text-[0.6rem] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
         Score: <span className="text-gray-700 dark:text-gray-300">{combination.score.toFixed(0)}</span> (higher is better)
       </div>
       </div>
