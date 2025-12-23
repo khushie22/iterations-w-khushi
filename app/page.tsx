@@ -42,12 +42,12 @@ export default function Home() {
               )}
             </button>
             <div>
-              <h1 className="text-2xl font-extrabold bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent">
+              <h1 className="text-2xl font-extrabold text-red-600 dark:text-red-500">
                 iterations w khushi
-          </h1>
+              </h1>
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 Smart cost estimation for avatar & voice solutions
-          </p>
+              </p>
             </div>
           </div>
         </div>
@@ -60,14 +60,13 @@ export default function Home() {
             sidebarOpen ? 'w-96' : 'w-0'
           } transition-all duration-300 ease-in-out overflow-hidden relative`}
         >
-          <div className="h-full bg-gradient-to-br from-white via-gray-50 to-white dark:from-gray-950 dark:via-black dark:to-gray-950 border-r border-gray-200/50 dark:border-gray-800/50 shadow-2xl">
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-50/30 to-transparent dark:via-blue-950/10 pointer-events-none"></div>
+          <div className="h-full bg-white dark:bg-black border-r border-gray-200/50 dark:border-gray-800/50 shadow-2xl">
             <div className="h-full overflow-y-auto p-8 relative z-10">
               <div className="mb-8 pb-6 border-b border-gray-200/50 dark:border-gray-800/50">
                 <div className="flex items-center space-x-3 mb-2">
-                  <div className="w-1 h-8 bg-gradient-to-b from-blue-600 to-indigo-600 rounded-full"></div>
+                  <div className="w-1 h-8 bg-blue-600 dark:bg-blue-500 rounded-full"></div>
                   <div>
-                    <h2 className="text-[1.275rem] font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+                    <h2 className="text-[1.275rem] font-bold text-gray-900 dark:text-white">
                       Configuration
                     </h2>
                     <p className="text-[0.6375rem] text-gray-500 dark:text-gray-400 mt-0.5 font-medium">
