@@ -1,16 +1,93 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Combination } from '@/lib/calculator';
 import { convertUSDToINR } from '@/lib/pricing';
-import { CheckCircle, XCircle, AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
+import { CheckCircle, XCircle, AlertTriangle, ChevronDown, ChevronUp, Filter, X } from 'lucide-react';
 
 interface ResultsDisplayProps {
   results: Combination[];
   isCalculating: boolean;
 }
 
+interface Filters {
+  avatarProviders: string[];
+  voiceAgents: string[];
+  hostingOptions: string[];
+  budgetFit: string[];
+}
+
 export default function ResultsDisplay({ results, isCalculating }: ResultsDisplayProps) {
+  const [showFilters, setShowFilters] = useState(false);
+  const [filters, setFilters] = useState<Filters>({
+    avatarProviders: [],
+    voiceAgents: [],
+    hostingOptions: [],
+    budgetFit: [],
+  });
+
+  // Get unique values for filter options
+  const filterOptions = useMemo(() => {
+    const avatarProviders = Array.from(new Set(results.map(r => r.avatarPlan.provider)));
+    const voiceAgents = Array.from(new Set(results.map(r => r.voiceAgent?.id || 'inbuilt')));
+    const hostingOptions = Array.from(new Set(results.map(r => r.hostingOption.id)));
+    return { avatarProviders, voiceAgents, hostingOptions };
+  }, [results]);
+
+  // Filter results
+  const filteredResults = useMemo(() => {
+    return results.filter(combination => {
+      // Avatar provider filter
+      if (filters.avatarProviders.length > 0 && !filters.avatarProviders.includes(combination.avatarPlan.provider)) {
+        return false;
+      }
+      
+      // Voice agent filter
+      const voiceId = combination.voiceAgent?.id || 'inbuilt';
+      if (filters.voiceAgents.length > 0 && !filters.voiceAgents.includes(voiceId)) {
+        return false;
+      }
+      
+      // Hosting filter
+      if (filters.hostingOptions.length > 0 && !filters.hostingOptions.includes(combination.hostingOption.id)) {
+        return false;
+      }
+      
+      // Budget fit filter
+      if (filters.budgetFit.length > 0) {
+        if (filters.budgetFit.includes('fits-budget') && !combination.fitsBudget) {
+          return false;
+        }
+        if (filters.budgetFit.includes('over-budget') && combination.fitsBudget) {
+          return false;
+        }
+      }
+      
+      return true;
+    });
+  }, [results, filters]);
+
+  const toggleFilter = (category: keyof Filters, value: string) => {
+    setFilters(prev => {
+      const current = prev[category];
+      const updated = current.includes(value)
+        ? current.filter(v => v !== value)
+        : [...current, value];
+      return { ...prev, [category]: updated };
+    });
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      avatarProviders: [],
+      voiceAgents: [],
+      hostingOptions: [],
+      budgetFit: [],
+    });
+  };
+
+  const activeFilterCount = filters.avatarProviders.length + filters.voiceAgents.length + 
+                            filters.hostingOptions.length + filters.budgetFit.length;
   if (isCalculating) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -34,20 +111,180 @@ export default function ResultsDisplay({ results, isCalculating }: ResultsDispla
 
   return (
     <div className="flex flex-col h-full min-h-0">
-      <div className="mb-6 pb-4 border-b border-gray-200 dark:border-gray-800 flex-shrink-0">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Best Combinations
+      <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-800 flex-shrink-0">
+        <div className="flex items-center justify-between mb-2">
+    <div>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              Best Combinations
       </h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-          {results.length} {results.length === 1 ? 'combination' : 'combinations'} found
-        </p>
-      </div>
-      <div className="flex-1 overflow-y-auto pr-2 min-h-0">
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-          {results.map((combination, index) => (
-            <CombinationCard key={combination.id} combination={combination} rank={index + 1} />
-          ))}
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              {filteredResults.length} of {results.length} {results.length === 1 ? 'combination' : 'combinations'}
+              {activeFilterCount > 0 && ` (${activeFilterCount} filter${activeFilterCount > 1 ? 's' : ''} active)`}
+            </p>
+          </div>
+          {results.length > 0 && (
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-colors ${
+                showFilters || activeFilterCount > 0
+                  ? 'bg-blue-600 text-white hover:bg-blue-700'
+                  : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+              }`}
+            >
+              <Filter className="w-4 h-4" />
+              <span>Filters</span>
+              {activeFilterCount > 0 && (
+                <span className="bg-white/20 px-2 py-0.5 rounded-full text-xs">
+                  {activeFilterCount}
+                </span>
+              )}
+            </button>
+          )}
         </div>
+
+        {/* Filter Panel */}
+        {showFilters && results.length > 0 && (
+          <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-semibold text-gray-900 dark:text-white">Filter Options</h3>
+              {activeFilterCount > 0 && (
+                <button
+                  onClick={clearFilters}
+                  className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  Clear all
+                </button>
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* Avatar Provider Filter */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Avatar Provider
+                </label>
+                <select
+                  multiple
+                  value={filters.avatarProviders}
+                  onChange={(e) => {
+                    const selected = Array.from(e.target.selectedOptions, option => option.value);
+                    setFilters(prev => ({ ...prev, avatarProviders: selected }));
+                  }}
+                  className="w-full px-3 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  size={Math.min(filterOptions.avatarProviders.length, 4)}
+                >
+                  {filterOptions.avatarProviders.map(provider => (
+                    <option key={provider} value={provider}>
+                      {provider.charAt(0).toUpperCase() + provider.slice(1)}
+                    </option>
+                  ))}
+                </select>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  Hold Ctrl/Cmd to select multiple
+                </p>
+              </div>
+
+              {/* Voice Agent Filter */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Voice Agent
+                </label>
+                <select
+                  multiple
+                  value={filters.voiceAgents}
+                  onChange={(e) => {
+                    const selected = Array.from(e.target.selectedOptions, option => option.value);
+                    setFilters(prev => ({ ...prev, voiceAgents: selected }));
+                  }}
+                  className="w-full px-3 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  size={Math.min(filterOptions.voiceAgents.length, 4)}
+                >
+                  {filterOptions.voiceAgents.map(agent => (
+                    <option key={agent} value={agent}>
+                      {agent === 'inbuilt' ? 'Inbuilt (Avatar)' : agent.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                    </option>
+                  ))}
+                </select>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  Hold Ctrl/Cmd to select multiple
+                </p>
+              </div>
+
+              {/* Hosting Filter */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Hosting
+                </label>
+                <select
+                  multiple
+                  value={filters.hostingOptions}
+                  onChange={(e) => {
+                    const selected = Array.from(e.target.selectedOptions, option => option.value);
+                    setFilters(prev => ({ ...prev, hostingOptions: selected }));
+                  }}
+                  className="w-full px-3 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  size={Math.min(filterOptions.hostingOptions.length, 4)}
+                >
+                  {filterOptions.hostingOptions.map(hosting => (
+                    <option key={hosting} value={hosting}>
+                      {hosting.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                    </option>
+                  ))}
+                </select>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  Hold Ctrl/Cmd to select multiple
+                </p>
+              </div>
+
+              {/* Budget Fit Filter */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Budget Status
+                </label>
+                <select
+                  multiple
+                  value={filters.budgetFit}
+                  onChange={(e) => {
+                    const selected = Array.from(e.target.selectedOptions, option => option.value);
+                    setFilters(prev => ({ ...prev, budgetFit: selected }));
+                  }}
+                  className="w-full px-3 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  size={2}
+                >
+                  <option value="fits-budget">Fits Budget</option>
+                  <option value="over-budget">Over Budget</option>
+                </select>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  Hold Ctrl/Cmd to select multiple
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="flex-1 overflow-y-auto pr-2 min-h-0">
+        {filteredResults.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            {filteredResults.map((combination, index) => (
+          <CombinationCard key={combination.id} combination={combination} rank={index + 1} />
+        ))}
+          </div>
+        ) : (
+          <div className="flex items-center justify-center h-full">
+            <div className="text-center">
+              <p className="text-gray-600 dark:text-gray-400 mb-2">No combinations match your filters</p>
+              {activeFilterCount > 0 && (
+                <button
+                  onClick={clearFilters}
+                  className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                >
+                  Clear filters to see all combinations
+                </button>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
