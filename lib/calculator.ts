@@ -147,8 +147,8 @@ function calculateCombination(
   // Calculate hosting cost breakdown
   const hostingBaseCostINR = hostingOption.baseMonthlyCostINR;
   const hostingUsersCostINR = input.users * hostingOption.costPerUserPerMonthINR;
-  const estimatedCalls = input.minutesPerMonth / 10; // Assuming ~10 min per call
-  const hostingCallsCostINR = estimatedCalls * hostingOption.costPerCallINR;
+  const calls = input.minutesPerMonth / 10; // Assuming ~10 min per call
+  const hostingCallsCostINR = calls * hostingOption.costPerCallINR;
   const hostingCostINR = hostingBaseCostINR + hostingUsersCostINR + hostingCallsCostINR;
 
   // Total cost (including miscellaneous expenses)
