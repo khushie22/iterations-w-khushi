@@ -3,7 +3,8 @@
 import { useState, useMemo } from 'react';
 import { Combination } from '@/lib/calculator';
 import { convertUSDToINR } from '@/lib/pricing';
-import { CheckCircle, XCircle, AlertTriangle, ChevronDown, ChevronUp, Filter, X } from 'lucide-react';
+import { CheckCircle, XCircle, AlertTriangle, ChevronDown, ChevronUp, Filter, X, Download } from 'lucide-react';
+import * as XLSX from 'xlsx';
 
 interface ResultsDisplayProps {
   results: Combination[];
@@ -19,6 +20,7 @@ interface Filters {
 
 export default function ResultsDisplay({ results, isCalculating }: ResultsDisplayProps) {
   const [showFilters, setShowFilters] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
   const [filters, setFilters] = useState<Filters>({
     avatarProviders: [],
     voiceAgents: [],
@@ -84,6 +86,60 @@ export default function ResultsDisplay({ results, isCalculating }: ResultsDispla
       hostingOptions: [],
       budgetFit: [],
     });
+  };
+
+  const handleExportToExcel = () => {
+    if (filteredResults.length === 0) return;
+    setIsExporting(true);
+    try {
+      const rows = filteredResults.map((combination, index) => ({
+        // Summary columns
+        Rank: index + 1,
+        'Fits Budget': combination.fitsBudget ? 'Yes' : 'No',
+        Score: Math.round(combination.score),
+        'Total Cost (INR)': combination.breakdown.totalCostINR,
+        'Total Cost (USD)': combination.breakdown.totalCostUSD,
+        // Main providers/options
+        'Avatar Provider': combination.avatarPlan.provider,
+        'Avatar Plan': combination.avatarPlan.name,
+        'Avatar Accounts': combination.avatarAccounts,
+        'Voice Agent': combination.voiceAgent ? combination.voiceAgent.name : 'Inbuilt (Avatar)',
+        'Voice Accounts': combination.voiceAccounts,
+        'Hosting Option': combination.hostingOption.name,
+        // Avatar detailed breakdown
+        'Avatar Tier': combination.avatarPlan.tier || '',
+        'Avatar Minutes Included': combination.avatarPlan.minutes,
+        'Avatar Additional Minutes': combination.breakdown.avatarAdditionalMinutes,
+        'Avatar Additional $/min': combination.avatarPlan.additionalPerMin,
+        'Avatar Base Cost (USD)': combination.breakdown.avatarBaseCostUSD,
+        'Avatar Additional Cost (USD)': combination.breakdown.avatarAdditionalCostUSD,
+        'Avatar Total Cost (INR)': combination.breakdown.avatarCostINR,
+        // Voice detailed breakdown
+        'Voice Pricing Model': combination.voiceAgent?.pricingModel ?? 'inbuilt',
+        'Voice Total Tokens': combination.breakdown.voiceTotalTokens ?? '',
+        'Voice Base/Minimum (USD)': combination.breakdown.voiceBaseCostUSD ?? '',
+        'Voice Per-Minute Cost (USD)': combination.breakdown.voicePerMinuteCostUSD ?? '',
+        'Voice Total Cost (INR)': combination.breakdown.voiceCostINR,
+        'Voice Total Cost (USD)': combination.breakdown.voiceCostUSD,
+        // Hosting detailed breakdown
+        'Hosting Base (INR)': combination.breakdown.hostingBaseCostINR,
+        'Hosting Users Cost (INR)': combination.breakdown.hostingUsersCostINR,
+        'Hosting Calls Cost (INR)': combination.breakdown.hostingCallsCostINR,
+        'Hosting Total (INR)': combination.breakdown.hostingCostINR,
+        // Miscellaneous
+        'Misc Expenses (INR)': combination.breakdown.miscExpensesINR,
+        'Warnings': combination.warnings.join('; '),
+      }));
+
+      const worksheet = XLSX.utils.json_to_sheet(rows);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Combinations');
+
+      const fileName = `combinations_${new Date().toISOString().slice(0, 10)}.xlsx`;
+      XLSX.writeFile(workbook, fileName);
+    } finally {
+      setIsExporting(false);
+    }
   };
 
   const activeFilterCount = filters.avatarProviders.length + filters.voiceAgents.length + 
@@ -286,6 +342,19 @@ export default function ResultsDisplay({ results, isCalculating }: ResultsDispla
           </div>
         )}
       </div>
+
+      {filteredResults.length > 0 && (
+        <div className="fixed bottom-6 right-6 z-40">
+          <button
+            onClick={handleExportToExcel}
+            disabled={isExporting}
+            className="flex items-center space-x-2 px-4 py-3 rounded-full shadow-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
+          >
+            <Download className="w-4 h-4" />
+            <span>{isExporting ? 'Exporting...' : 'Download Excel'}</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
