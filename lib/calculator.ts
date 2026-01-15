@@ -301,12 +301,15 @@ function buildAvatarPlanCombos(): { plan: AvatarPlan; accounts: number }[] {
   }
 
   // Two-account combos (same provider, allow same or different plans)
+  // Use j >= i to avoid duplicates (e.g., Growth+Pro and Pro+Growth are the same)
   for (let i = 0; i < eligible.length; i++) {
     for (let j = i; j < eligible.length; j++) {
       const a = eligible[i];
       const b = eligible[j];
       if (a.provider !== b.provider) continue;
-      const aggregated = aggregateAvatarPlans([a, b]);
+      // Sort plans by ID to ensure consistent ordering and avoid duplicates
+      const sortedPlans = [a, b].sort((p1, p2) => p1.id.localeCompare(p2.id));
+      const aggregated = aggregateAvatarPlans(sortedPlans);
       combos.push({ plan: aggregated, accounts: 2 });
     }
   }
@@ -350,12 +353,19 @@ function aggregateAvatarPlans(plans: AvatarPlan[]): AvatarPlan {
 
 function buildVoiceAgentCombos(): { agent: VoiceAgent; accounts: number }[] {
   const combos: { agent: VoiceAgent; accounts: number }[] = [];
+  const humeAgents = VOICE_AGENTS.filter((v) => v.id.startsWith('hume-'));
+  
   for (const agent of VOICE_AGENTS) {
     combos.push({ agent, accounts: 1 });
     if (agent.id.startsWith('hume-')) {
       // Allow two Hume accounts; they can be same or mixed Hume plans
-      for (const other of VOICE_AGENTS.filter((v) => v.id.startsWith('hume-'))) {
-        const aggregated = aggregateHumeAgents([agent, other]);
+      // Use index-based iteration to avoid duplicates (e.g., Pro+Scale and Scale+Pro)
+      const currentIndex = humeAgents.findIndex((a) => a.id === agent.id);
+      for (let i = currentIndex; i < humeAgents.length; i++) {
+        const other = humeAgents[i];
+        // Sort agents by ID to ensure consistent ordering and avoid duplicates
+        const sortedAgents = [agent, other].sort((a1, a2) => a1.id.localeCompare(a2.id));
+        const aggregated = aggregateHumeAgents(sortedAgents);
         combos.push({ agent: aggregated, accounts: 2 });
       }
     }

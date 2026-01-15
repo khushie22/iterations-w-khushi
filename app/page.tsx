@@ -43,8 +43,8 @@ export default function Home() {
             </button>
             <div>
               <h1 className="text-2xl font-extrabold text-red-600 dark:text-red-500">
-                iterations w khushi
-          </h1>
+                Cost Iterations
+              </h1>
             </div>
           </div>
         </div>
