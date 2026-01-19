@@ -129,6 +129,8 @@ export default function ResultsDisplay({ results, isCalculating }: ResultsDispla
         // Miscellaneous
         'Misc Expenses (INR)': combination.breakdown.miscExpensesINR,
         'Warnings': combination.warnings.join('; '),
+        // Plan notes (e.g., annual commitment info)
+        'Plan Note': combination.avatarPlan.note || '',
       }));
 
       const worksheet = XLSX.utils.json_to_sheet(rows);
@@ -413,9 +415,16 @@ function CombinationCard({ combination, rank }: { combination: Combination; rank
       <div className="space-y-3 text-[0.7rem] mb-4">
         <div className="flex justify-between items-center py-2 px-3 rounded-lg bg-gray-50/50 dark:bg-gray-900/30 backdrop-blur-sm">
           <span className="text-[0.6rem] font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">Avatar</span>
-          <span className="font-bold text-gray-900 dark:text-white">
-            {combination.avatarPlan.name}
-          </span>
+          <div className="text-right">
+            <span className="font-bold text-gray-900 dark:text-white">
+              {combination.avatarPlan.name}
+            </span>
+            {combination.avatarPlan.isAnnualOnly && (
+              <div className="text-[0.55rem] text-blue-600 dark:text-blue-400 font-medium mt-0.5">
+                Annual Commitment
+              </div>
+            )}
+          </div>
         </div>
         <div className="flex justify-between items-center py-2 px-3 rounded-lg bg-gray-50/50 dark:bg-gray-900/30 backdrop-blur-sm">
           <span className="text-[0.6rem] font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">Voice</span>

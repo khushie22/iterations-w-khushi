@@ -11,6 +11,11 @@ export interface AvatarPlan {
   concurrency?: number; // Max concurrent sessions (undefined = unlimited/custom)
   additionalPerMin: number;
   hasInbuiltVoice: boolean;
+  // Annual commitment fields (for Enterprise plans)
+  isAnnualOnly?: boolean; // true if this plan requires annual commitment
+  annualCommitmentUSD?: number; // Annual commitment amount in USD
+  totalAnnualMinutes?: number; // Total minutes included in the annual plan
+  note?: string; // Note about the plan (e.g., "Annual commitment required")
 }
 
 export interface VoiceAgent {
@@ -65,6 +70,23 @@ export const AVATAR_PLANS: AvatarPlan[] = [
     additionalPerMin: 0,
     hasInbuiltVoice: true,
   },
+  // HeyGen Enterprise Plan (Annual commitment only)
+  {
+    id: 'heygen-enterprise',
+    name: 'HeyGen Enterprise',
+    provider: 'heygen',
+    tier: 'Enterprise',
+    monthlyPrice: 2000, // $24,000 / 12
+    minutes: 20000, // Minutes per month
+    maxLength: undefined,
+    concurrency: 100,
+    additionalPerMin: 0.10,
+    hasInbuiltVoice: true,
+    isAnnualOnly: true,
+    annualCommitmentUSD: 24000,
+    totalAnnualMinutes: 240000, // 20,000 * 12
+    note: 'Annual commitment required. 1080p custom avatars.',
+  },
   // Anam
   {
     id: 'anam-starter',
@@ -114,17 +136,54 @@ export const AVATAR_PLANS: AvatarPlan[] = [
     additionalPerMin: 0.18,
     hasInbuiltVoice: true,
   },
+  // Anam Enterprise Plans (Annual commitment only)
   {
-    id: 'anam-enterprise',
-    name: 'Anam Enterprise',
+    id: 'anam-enterprise-tier1',
+    name: 'Anam Enterprise Tier 1',
     provider: 'anam',
     tier: 'Enterprise',
-    monthlyPrice: 0, // Custom pricing - not specified
-    minutes: 0, // Custom
-    maxLength: undefined, // unlimited (--)
-    concurrency: 30, // 30+
-    additionalPerMin: 0.18,
+    monthlyPrice: 3900, // $1,400 (annual commitment/12) + $2,500 (annual payment/12)
+    minutes: 10000, // Minutes per month
+    maxLength: undefined,
+    concurrency: 30,
+    additionalPerMin: 0.14,
     hasInbuiltVoice: true,
+    isAnnualOnly: true,
+    annualCommitmentUSD: 16800,
+    totalAnnualMinutes: 120000, // 10,000 * 12
+    note: 'Annual commitment required. Includes $30,000 annual payment.',
+  },
+  {
+    id: 'anam-enterprise-tier2',
+    name: 'Anam Enterprise Tier 2',
+    provider: 'anam',
+    tier: 'Enterprise',
+    monthlyPrice: 8500, // $6,000 (annual commitment/12) + $2,500 (annual payment/12)
+    minutes: 50000, // Minutes per month
+    maxLength: undefined,
+    concurrency: 50,
+    additionalPerMin: 0.12, // Estimated based on tier structure
+    hasInbuiltVoice: true,
+    isAnnualOnly: true,
+    annualCommitmentUSD: 72000,
+    totalAnnualMinutes: 600000, // 50,000 * 12
+    note: 'Annual commitment required. Includes $30,000 annual payment.',
+  },
+  {
+    id: 'anam-enterprise-tier3',
+    name: 'Anam Enterprise Tier 3',
+    provider: 'anam',
+    tier: 'Enterprise',
+    monthlyPrice: 12500, // $10,000 (annual commitment/12) + $2,500 (annual payment/12)
+    minutes: 100000, // Minutes per month
+    maxLength: undefined,
+    concurrency: 100,
+    additionalPerMin: 0.12,
+    hasInbuiltVoice: true,
+    isAnnualOnly: true,
+    annualCommitmentUSD: 120000,
+    totalAnnualMinutes: 1200000, // 100,000 * 12
+    note: 'Annual commitment required. Includes $30,000 annual payment.',
   },
   // Tavus
   {
@@ -151,17 +210,70 @@ export const AVATAR_PLANS: AvatarPlan[] = [
     additionalPerMin: 0.32,
     hasInbuiltVoice: true,
   },
+  // Tavus Enterprise Plans (Annual commitment only)
   {
-    id: 'tavus-enterprise',
-    name: 'Tavus Enterprise',
+    id: 'tavus-enterprise-tier1',
+    name: 'Tavus Enterprise Tier 1',
     provider: 'tevus',
     tier: 'Enterprise',
-    monthlyPrice: 1666.67, // $1,666.67/month (annual payment converted to monthly)
-    minutes: 6667,
-    maxLength: undefined, // Not specified
+    monthlyPrice: 1667, // $20,000 / 12
+    minutes: 6667, // Minutes per month
+    maxLength: undefined,
     concurrency: 30,
     additionalPerMin: 0.25,
     hasInbuiltVoice: true,
+    isAnnualOnly: true,
+    annualCommitmentUSD: 20000,
+    totalAnnualMinutes: 80000, // 6,667 * 12
+    note: 'Annual commitment required. Avatar cost: $40 per avatar.',
+  },
+  {
+    id: 'tavus-enterprise-tier2',
+    name: 'Tavus Enterprise Tier 2',
+    provider: 'tevus',
+    tier: 'Enterprise',
+    monthlyPrice: 4917, // $59,000 / 12
+    minutes: 24583, // Minutes per month (24,583)
+    maxLength: undefined,
+    concurrency: 100,
+    additionalPerMin: 0.20,
+    hasInbuiltVoice: true,
+    isAnnualOnly: true,
+    annualCommitmentUSD: 59000,
+    totalAnnualMinutes: 295000, // 24,583 * 12
+    note: 'Annual commitment required. Avatar cost: $40 per avatar.',
+  },
+  {
+    id: 'tavus-enterprise-tier3',
+    name: 'Tavus Enterprise Tier 3',
+    provider: 'tevus',
+    tier: 'Enterprise',
+    monthlyPrice: 8329, // $99,950 / 12
+    minutes: 59583, // Minutes per month (59,583)
+    maxLength: undefined,
+    concurrency: 200,
+    additionalPerMin: 0.14,
+    hasInbuiltVoice: true,
+    isAnnualOnly: true,
+    annualCommitmentUSD: 99950,
+    totalAnnualMinutes: 715000, // 59,583 * 12
+    note: 'Annual commitment required. Avatar cost: $40 per avatar.',
+  },
+  {
+    id: 'tavus-enterprise-tier4',
+    name: 'Tavus Enterprise Tier 4',
+    provider: 'tevus',
+    tier: 'Enterprise',
+    monthlyPrice: 18200, // $218,400 / 12
+    minutes: 200000, // Minutes per month
+    maxLength: undefined,
+    concurrency: 300,
+    additionalPerMin: 0.09,
+    hasInbuiltVoice: true,
+    isAnnualOnly: true,
+    annualCommitmentUSD: 218400,
+    totalAnnualMinutes: 2400000, // 200,000 * 12
+    note: 'Annual commitment required. Avatar cost: $40 per avatar.',
   },
 ];
 
@@ -213,6 +325,15 @@ export const VOICE_AGENTS: VoiceAgent[] = [
     monthlyBaseCost: 500, // Minimum expenditure required
     monthlyMinimumCost: 500, // Minimum expenditure required
     concurrency: 30,
+  },
+  {
+    id: 'hume-enterprise',
+    name: 'Hume Enterprise',
+    pricingModel: 'per-minute',
+    pricePerMinute: 0.03,
+    monthlyBaseCost: 1250, // $15,000 annual minimum / 12 months
+    monthlyMinimumCost: 1250, // $15,000 annual minimum / 12 months
+    concurrency: undefined, // Unlimited
   },
   {
     id: 'grok',
